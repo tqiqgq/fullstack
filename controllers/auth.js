@@ -37,6 +37,7 @@ module.exports.register = async function(req, res) {
     const candidate = await User.findOne({email: req.body.email})
     if (candidate) {
         // user exist
+        
         res.status(409).json({
             message: 'This email is busy. Try another'
         })
@@ -49,6 +50,7 @@ module.exports.register = async function(req, res) {
             password: bcrypt.hashSync(password, salt)
         })
         try {
+            console.log(req.body.email)
             await user.save()
             res.status(201).json(user)
         } catch(e) {
